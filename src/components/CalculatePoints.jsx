@@ -41,7 +41,7 @@ export const CalculatePoints = () => {
       {loadData ? (
         <DisplayPoints points={pointsData} totalPoints={totalPoints} />
       ) : (
-        <p>Enter User Name to check points (Bob, Tom)</p>
+        <p>Enter User Name to check points (Bob, Tom, John)</p>
       )}
     </div>
   );

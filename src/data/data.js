@@ -14,7 +14,7 @@ export const points = [
   {
     id: 3,
     name: "bob",
-    amountSpent: 110,
+    amountSpent: 120,
     date: "2022-11-20",
   },
   {
@@ -32,7 +32,19 @@ export const points = [
   {
     id: 6,
     name: "tom",
-    amountSpent: 60,
+    amountSpent: 80,
     date: "2022-11-20",
+  },
+  {
+    id: 7,
+    name: "john",
+    amountSpent: 140,
+    date: "2022-11-20",
+  },
+  {
+    id: 8,
+    name: "john",
+    amountSpent: 90,
+    date: "2022-12-20",
   },
 ];
