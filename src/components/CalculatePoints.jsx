@@ -1,19 +1,24 @@
 import React, { useState } from "react";
+import { DisplayPoints } from "./DisplayPoints";
 import { apiData } from "../services/mockApi";
-import { formatData,getTotalPointsForUser,getMonthFromDate } from "../utils/utils";
-import "./CalculatePoints.css"
+import { formatData, getTotalPointsForUser } from "../utils/utils";
+import "./CalculatePoints.css";
 
 export const CalculatePoints = () => {
   const [user, setUser] = useState("");
+  const [loadData, setLoadData] = useState(false);
   const [pointsData, setPointsData] = useState([]);
   const [totalPoints, setTotalPoints] = useState();
 
   const handleClick = async () => {
-    const data = await apiData(user);
-    const formattedData = formatData(data)
-    const totalPoints = getTotalPointsForUser(formattedData)
-    setTotalPoints(totalPoints);
-    setPointsData(formattedData);
+    try {
+      const data = await apiData(user);
+      const formattedData = formatData(data);
+      const totalPoints = getTotalPointsForUser(formattedData);
+      setTotalPoints(totalPoints);
+      setPointsData(formattedData);
+      setLoadData(true);
+    } catch (err) {}
   };
 
   const handleChange = (e) => {
@@ -29,13 +34,15 @@ export const CalculatePoints = () => {
         value={user}
         onChange={handleChange}
       />
-      <button onClick={handleClick}>Get Points</button>
+      <button disabled={!user} onClick={handleClick}>
+        Get Points
+      </button>
 
-      {pointsData.length > 0  ? <>
-        {pointsData.map((data) => (
-        <p key={data.id}>{`Points earned in Month of ${getMonthFromDate(data.date)} is ${data.totalPoints}`}</p>
-      ))}
-      <p>{`Total Points earned in the last 3 months is ${totalPoints}` }</p></> : null  }  
+      {loadData ? (
+        <DisplayPoints points={pointsData} totalPoints={totalPoints} />
+      ) : (
+        <p>Enter User Name to check points (Bob, Tom)</p>
+      )}
     </div>
   );
 };

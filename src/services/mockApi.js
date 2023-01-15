@@ -1,8 +1,12 @@
 import { points } from "../data/data";
 
 export const apiData = (user) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve(filterDataByName(points, user)), 1000);
+  return new Promise((resolve, reject) => {
+    if (user) {
+      setTimeout(resolve(filterDataByName(points, user)), 1000 * Math.random());
+    } else {
+      reject("Bad Request");
+    }
   });
 };
 
